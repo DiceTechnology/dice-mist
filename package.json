@@ -1,7 +1,14 @@
 {
 	"name": "dice-mist",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"description": "A wrapper for the evaporate library allowing use in a web worker.",
+	"keywords": [
+		"S3 Upload",
+		"Web worker",
+		"Evaporate.js",
+		"Evaporatejs",
+		"Evaporate"
+	],
 	"main": "dist/mist.js",
 	"scripts": {
 		"start": "webpack --watch --mode=development",
