@@ -1,5 +1,6 @@
 import EvaporatorBase from './EvaporatorBase';
-import EvaporatorWorker from './Evaporate.worker';
+import Worker = require('worker-loader?inline=true!./worker');
+console.log(Worker);
 
 enum WorkerMessage {
 	PROGRESS = 'progress',
@@ -11,7 +12,7 @@ enum WorkerMessage {
 export default class EvaporatorThreaded extends EvaporatorBase {
 	completedFiles: number;
 	numFiles: number;
-	worker: Worker;
+	worker: any;
 
 	constructor(config, files) {
 		super(config, files);
@@ -20,7 +21,7 @@ export default class EvaporatorThreaded extends EvaporatorBase {
 
 		this.numFiles = files.length;
 		this.completedFiles = 0;
-		this.worker = new EvaporatorWorker();
+		this.worker = new Worker();
 		this.listenToMessages();
 		this.worker.postMessage({
 			type: 'upload',

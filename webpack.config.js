@@ -7,6 +7,8 @@ const DIR_BUILD = path.resolve(__dirname, 'dist');
 module.exports = {
 	entry: `${DIR_SOURCE}/index.ts`,
 	output: {
+		libraryTarget: 'commonjs2',
+
 		path: DIR_BUILD,
 		filename: 'evaporator.js'
 	},
@@ -14,7 +16,7 @@ module.exports = {
 	resolve: { extensions: [".ts", ".js"] },
 	module: {
 		rules: [
-			{test: /\.worker\.ts$/, loader: 'worker-loader'},
+			{test: /\.worker\.ts$/, loader: 'worker-loader', options: { inline: true, name: 'WorkerName.[hash].js' }},
 			{test: /\.tsx?$/, loader: "ts-loader" },
 		]
 	}
