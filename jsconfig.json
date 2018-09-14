@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "target": "es2017",
+        "allowSyntheticDefaultImports": true,
+        "baseUrl": ".",
+        "paths": {
+            "polyfill": [ "./src/js/polyfill" ],
+            "jwplayer": [ "./src/js/vendor/jwplayer.js" ],
+            "DiceConstants/*": [ "./src/js/common/constants/*" ],
+            "DiceCommon/*": [ "./src/js/common/*" ],
+            "DiceViews/*": [ "./src/js/views/*" ],
+            "DiceConfig/*": [ "./src/js/config/*" ]
+        }
+    },
+    "exclude": [
+        "node_modules",
+        "public"
+    ]
+}

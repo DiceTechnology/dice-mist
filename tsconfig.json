@@ -1,0 +1,12 @@
+{
+	"compilerOptions": {
+		"target": "es2015",
+		"moduleResolution": "node",
+		"removeComments": true,
+		"baseUrl": ".",
+		"module": "commonjs",
+		"allowSyntheticDefaultImports": true,
+		"noUnusedLocals": true,
+		"paths": {}
+	}
+}

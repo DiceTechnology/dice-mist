@@ -1,0 +1,57 @@
+{
+    "defaultSeverity": "error",
+    "extends": [
+		"tslint:recommended",
+		"tslint-react"
+    ],
+    "jsRules": {},
+    "rules": {
+        "indent": [
+			true,
+			"tabs"
+		],
+		"quotemark": [
+			true,
+			"single",
+			"jsx-double"
+		],
+		"no-unused-variable": true,
+		"no-var-keyword": true,
+		"max-line-length": [
+			true,
+			140
+		],
+		"ban-types": [
+			true,
+			["Object", "Avoid using the `Object` type. Did you mean `object`?"],
+			["Boolean", "Avoid using the `Boolean` type. Did you mean `boolean`?"],
+			["Number", "Avoid using the `Number` type. Did you mean `number`?"],
+			["String", "Avoid using the `String` type. Did you mean `string`?"],
+			["Symbol", "Avoid using the `Symbol` type. Did you mean `symbol`?"]
+		],
+		"curly": false,
+		"ordered-imports": false,
+		"align": false,
+		"object-literal-sort-keys": false,
+		"trailing-comma": false,
+		"arrow-parens": false,
+		"object-literal-key-quotes": false,
+		"member-ordering": false,
+		"member-access": false,
+		"jsx-wrap-multiline": false,
+		"jsx-alignment": false,
+		"no-empty-interface": false,
+		"space-before-function-paren": false,
+		"jsx-boolean-value": false,
+		"no-console": false
+    },
+    "rulesDirectory": [],
+	"globals": {
+		"APP_CONF": true,
+		"ENV_CONF": true,
+		"CONF": true,
+		"APP_READY": true,
+		"APP_NO_REALM": true,
+		"AUTH_PROVIDERS": true
+    }
+}

@@ -1,0 +1,119 @@
+{
+	"env": {
+		"node": true,
+		"browser": true,
+		"es6": true
+	},
+	"globals":{
+		"APP_CONF": true,
+		"ENV_CONF": true,
+		"CONF": true,
+		"APP_READY": true,
+		"APP_NO_REALM": true,
+		"AUTH_PROVIDERS": true
+    },
+	"extends": ["eslint:recommended", "plugin:react/recommended"],
+	"parser": "babel-eslint",
+	"parserOptions": {
+		"ecmaFeatures": {
+			"experimentalObjectRestSpread": true,
+			"jsx": true
+		},
+		"sourceType": "module"
+	},
+	"plugins": [
+		"react"
+	],
+	"rules": {
+		"indent": [
+			"error",
+			"tab",
+			{ "SwitchCase": 1 }
+		],
+		"linebreak-style": [
+			"error",
+			"unix"
+		],
+		"quotes": [
+			"error",
+			"single"
+		],
+		"semi": [
+			"error",
+			"always"
+		],
+		"eol-last": [
+			"error",
+			"always"
+		],
+		"max-len": [
+			"error",
+			140
+		],
+		"no-console": [
+			"off"
+		],
+		"eqeqeq": ["error"],
+		"no-restricted-globals": [
+			"error",
+			"addEventListener",
+			"blur",
+			"close",
+			"closed",
+			"confirm",
+			"defaultStatus",
+			"event",
+			"external",
+			"defaultstatus",
+			"find",
+			"focus",
+			"frameElement",
+			"frames",
+			"history",
+			"innerHeight",
+			"innerWidth",
+			"length",
+			"location",
+			"locationbar",
+			"menubar",
+			"moveBy",
+			"moveTo",
+			"name",
+			"onblur",
+			"onerror",
+			"onfocus",
+			"onload",
+			"onresize",
+			"onunload",
+			"open",
+			"opener",
+			"opera",
+			"outerHeight",
+			"outerWidth",
+			"pageXOffset",
+			"pageYOffset",
+			"parent",
+			"print",
+			"removeEventListener",
+			"resizeBy",
+			"resizeTo",
+			"screen",
+			"screenLeft",
+			"screenTop",
+			"screenX",
+			"screenY",
+			"scroll",
+			"scrollbars",
+			"scrollBy",
+			"scrollTo",
+			"scrollX",
+			"scrollY",
+			"self",
+			"status",
+			"statusbar",
+			"stop",
+			"toolbar",
+			"top"
+		]
+	}
+}
