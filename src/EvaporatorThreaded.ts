@@ -1,27 +1,20 @@
 import EvaporatorBase from './EvaporatorBase';
-import Worker = require('worker-loader?inline=true!./worker');
-console.log(Worker);
-
-enum WorkerMessage {
-	PROGRESS = 'progress',
-	SUCCESS = 'success',
-	START = 'start',
-	ERROR = 'error'
-}
+import EvaporatorWorker = require('worker-loader?inline=true&fallback=false!./worker');
+import { WorkerMessages } from './types';
 
 export default class EvaporatorThreaded extends EvaporatorBase {
 	completedFiles: number;
 	numFiles: number;
-	worker: any;
+	worker: Worker;
 
 	constructor(config, files) {
 		super(config, files);
 
-		const fileMeta = files.map(file => file.file.guid);
+		const fileMeta = files.map(file => file.file.id);
 
 		this.numFiles = files.length;
 		this.completedFiles = 0;
-		this.worker = new Worker();
+		this.worker = new EvaporatorWorker();
 		this.listenToMessages();
 		this.worker.postMessage({
 			type: 'upload',
@@ -32,21 +25,31 @@ export default class EvaporatorThreaded extends EvaporatorBase {
 	}
 
 	private listenToMessages = () => {
-		this.worker.onmessage = ({data: { type, progress, guid, data, file, cancelId, reason }}) => {
+		this.worker.onmessage = (message) => {
+			const { data: {
+				id,
+				type,
+				progress,
+				data,
+				cancelId,
+				reason,
+				awsObjectKey
+			}} = message;
+
 			switch (type) {
-				case (WorkerMessage.PROGRESS):
-					this.onProgress(progress, guid);
+				case (WorkerMessages.PROGRESS):
+					this.onProgress(progress, id);
 					break;
-				case (WorkerMessage.SUCCESS):
-					this.onSuccess(file, data);
+				case (WorkerMessages.SUCCESS):
+					this.onSuccess(id, data, awsObjectKey);
 					this.completedFiles += 1;
 					break;
-				case (WorkerMessage.START):
+				case (WorkerMessages.START):
 					const cancel = this.generateCancel(cancelId);
-					this.onStart(cancel, file);
+					this.onStart(cancel, id);
 					break;
-				case (WorkerMessage.ERROR):
-					this.onError(reason, file);
+				case (WorkerMessages.ERROR):
+					this.onError(reason, id);
 					this.completedFiles += 1;
 			}
 
@@ -57,10 +60,7 @@ export default class EvaporatorThreaded extends EvaporatorBase {
 	private generateCancel = (id) => (() => {
 		this.completedFiles += 1;
 		this.checkCompletion();
-		this.worker.postMessage({
-			type: 'cancel',
-			id,
-		});
+		this.worker.postMessage({id, type: 'cancel' });
 	})
 
 	private checkCompletion = () => {

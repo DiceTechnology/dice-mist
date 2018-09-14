@@ -16,7 +16,6 @@ module.exports = {
 	resolve: { extensions: [".ts", ".js"] },
 	module: {
 		rules: [
-			{test: /\.worker\.ts$/, loader: 'worker-loader', options: { inline: true, name: 'WorkerName.[hash].js' }},
 			{test: /\.tsx?$/, loader: "ts-loader" },
 		]
 	}
