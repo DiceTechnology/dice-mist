@@ -4,6 +4,10 @@ Dice Mist is a wrapper for the [Evaporate library](https://github.com/TTLabs/Eva
 
 When uploading multiple large files, it is possible for the upload process to lag the main JS thread, by delegating this work to a web worker you can keep your UI snappy.
 
+## Installation
+
+`npm i dice-mist`
+
 ## Usage
 
 ```javascript
@@ -29,4 +33,4 @@ Mist(config, files)
 
 ## How It Works
 
-![Sequence Diagram](docs/sequence.png?raw=true "Upload Sequence Diagram")
+![Sequence Diagram](https://raw.githubusercontent.com/DiceTechnology/dice-mist/master/docs/sequence.png "Upload Sequence Diagram")
