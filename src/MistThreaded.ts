@@ -1,8 +1,8 @@
-import EvaporatorBase from './EvaporatorBase';
-import EvaporatorWorker = require('worker-loader?inline=true&fallback=false!./worker');
+import MistBase from './MistBase';
+import MistWorker = require('worker-loader?inline=true&fallback=false!./worker');
 import { WorkerMessages } from './types';
 
-export default class EvaporatorThreaded extends EvaporatorBase {
+export default class MistThreaded extends MistBase {
 	completedFiles: number;
 	numFiles: number;
 	worker: Worker;
@@ -14,7 +14,7 @@ export default class EvaporatorThreaded extends EvaporatorBase {
 
 		this.numFiles = files.length;
 		this.completedFiles = 0;
-		this.worker = new EvaporatorWorker();
+		this.worker = new MistWorker();
 		this.listenToMessages();
 		this.worker.postMessage({
 			type: 'upload',

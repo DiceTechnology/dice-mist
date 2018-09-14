@@ -1,4 +1,4 @@
-export default abstract class EvaporatorBase {
+export default abstract class MistBase {
 	files: any[];
 	config: any;
 	onStart: (cancel: () => void, id: string) => null;

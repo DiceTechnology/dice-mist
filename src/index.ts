@@ -1,9 +1,9 @@
-import Evaporator from './Evaporator';
-import EvaporatorThreaded from './EvaporatorThreaded';
+import Mist from './Mist';
+import MistThreaded from './MistThreaded';
 import { IConfig } from './types';
 
-const EvaporatorFactory = (config: IConfig = {} , files = []) => {
-	return config.worker ? new EvaporatorThreaded(config, files) : new Evaporator(config, files);
+const MistFactory = (config: IConfig = {} , files = []) => {
+	return config.worker ? new MistThreaded(config, files) : new Mist(config, files);
 };
 
-export default EvaporatorFactory;
+export default MistFactory;

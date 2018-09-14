@@ -1,7 +1,7 @@
 import * as Evaporate from 'evaporate';
-import EvaporatorBase from './EvaporatorBase';
+import MistBase from './MistBase';
 
-export default class Evaporator extends EvaporatorBase {
+export default class Mist extends MistBase {
 	constructor(config, files) {
 		super(config, files);
 

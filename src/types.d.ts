@@ -7,3 +7,4 @@ declare module 'worker-loader*' {
 }
 
 declare function postMessage(message: any): void;
+

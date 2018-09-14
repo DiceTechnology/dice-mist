@@ -1,13 +1,13 @@
-# Dice Evaporator
+# Dice Mist
 
-Dice Evaporator is a wrapper for the [Evaporate library](https://github.com/TTLabs/EvaporateJS) providing web worker support.
+Dice Mist is a wrapper for the [Evaporate library](https://github.com/TTLabs/EvaporateJS) providing web worker support.
 
 When uploading multiple large files, it is possible for the upload process to lag the main JS thread, by delegating this work to a web worker you can keep your UI snappy.
 
 ## Usage
 
 ```javascript
-import Evaporator from 'dice-evaporator';
+import Mist from 'dice-mist';
 
 const config = {
     // evaporate config
@@ -20,7 +20,7 @@ const files = [
     // E.g: files.forEach(file => {file.id = generateId()});
 ];
 
-Evaporator(config, files)
+Mist(config, files)
     .progress((progress, id) => { /* File upload % progress - number between 0 & 1 */})
     .success((id, data, awsObjectKey) => { /* fileGuid, fileData, s3 key/path */})
     .error((reason, id) => { /* error reason, errored file */})

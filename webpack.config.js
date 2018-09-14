@@ -10,7 +10,7 @@ module.exports = {
 		libraryTarget: 'commonjs2',
 
 		path: DIR_BUILD,
-		filename: 'evaporator.js'
+		filename: 'mist.js'
 	},
 	devtool: "source-map",
 	resolve: { extensions: [".ts", ".js"] },
