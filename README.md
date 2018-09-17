@@ -31,6 +31,11 @@ Mist(config, files)
     .start((cancel, id) => { /* function to cancel individual file upload, file id */});
 ```
 
+### Web Worker Crypto Functions
+
+For ease of instantiation the web work implementation does not accept MD5 or SHA256 functions from the config.
+These are set to [js-spark-md5](https://github.com/satazor/js-spark-md5) and [js-sha256](https://github.com/emn178/js-sha256).
+
 ## How It Works
 
 ![Sequence Diagram](https://raw.githubusercontent.com/DiceTechnology/dice-mist/master/docs/sequence.png "Upload Sequence Diagram")
