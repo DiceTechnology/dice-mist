@@ -9,6 +9,12 @@ export default abstract class MistBase {
 	constructor (config, files) {
 		this.files = files;
 		this.config = config;
+
+		// default callbacks
+		this.onStart = () => null;
+		this.onProgress = () => null;
+		this.onSuccess = () => null;
+		this.onError = () => null;
 	}
 
 	public start = onStart => {

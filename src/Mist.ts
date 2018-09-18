@@ -14,7 +14,6 @@ export default class Mist extends MistBase {
 					file,
 					progress: (percentage) => this.onProgress(percentage, file.id),
 				};
-				console.log(formattedConfig);
 				const cancel = () => evaporate.cancel(`${data.bucketName}/${data.path}`);
 
 				this.onProgress(0, id);

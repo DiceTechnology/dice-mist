@@ -5,7 +5,7 @@ import { WorkerMessages } from './types';
 export default class MistThreaded extends MistBase {
 	completedFiles: number;
 	numFiles: number;
-	worker: Worker;
+	worker: any;
 
 	constructor(config, files) {
 		super(config, files);

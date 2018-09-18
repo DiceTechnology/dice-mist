@@ -10,12 +10,14 @@ class Worker {
 	}
 
 	private listenToEvents = () => {
+		// @ts-ignore
 		self.onmessage = async ({ data }) => {
 			const { type, id, config } = data;
 
 			switch (type) {
 				case 'cancel':
 					if (this.evaporate) this.evaporate.cancel(id);
+					// @ts-ignore
 					else console.error('Cannot cancel, evaporate not initialised');
 					break;
 				case 'upload':
@@ -51,6 +53,7 @@ class Worker {
 
 	private augmentConfig = config => ({
 		...config,
+		// @ts-ignore
 		cryptoMd5Method: data => btoa(SparkMD5.ArrayBuffer.hash(data, true)),
 		cryptoHexEncodedHash256: data =>  {
 			const hash = sha256.create();
