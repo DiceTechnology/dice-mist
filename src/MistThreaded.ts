@@ -17,7 +17,7 @@ export default class MistThreaded extends MistBase {
 		this.worker = new MistWorker();
 		this.listenToMessages();
 		this.worker.postMessage({
-			type: 'upload',
+			type: WorkerMessages.UPLOAD,
 			config,
 			files,
 			fileMeta
@@ -60,7 +60,7 @@ export default class MistThreaded extends MistBase {
 	private generateCancel = (id) => (() => {
 		this.completedFiles += 1;
 		this.checkCompletion();
-		this.worker.postMessage({id, type: 'cancel' });
+		this.worker.postMessage({id, type: WorkerMessages.CANCEL });
 	})
 
 	private checkCompletion = () => {

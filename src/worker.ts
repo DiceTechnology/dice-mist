@@ -1,6 +1,7 @@
 import * as Evaporate from 'evaporate';
 import * as SparkMD5 from 'spark-md5';
 import { sha256 } from 'js-sha256';
+import { WorkerMessages } from './types';
 
 class Worker {
 	evaporate: any;
@@ -15,12 +16,12 @@ class Worker {
 			const { type, id, config } = data;
 
 			switch (type) {
-				case 'cancel':
+				case WorkerMessages.CANCEL:
 					if (this.evaporate) this.evaporate.cancel(id);
 					// @ts-ignore
 					else console.error('Cannot cancel, evaporate not initialised');
 					break;
-				case 'upload':
+				case WorkerMessages.UPLOAD:
 					const augmentedConfig = this.augmentConfig(config);
 					this.evaporate = await Evaporate.create(augmentedConfig);
 					this.upload(data);
@@ -37,16 +38,16 @@ class Worker {
 				name,
 				file,
 				bucket,
-				progress: progress => postMessage({ type: 'progress', progress, id })
+				progress: progress => postMessage({ type: WorkerMessages.PROGRESS, progress, id })
 			};
 
-			postMessage({type: 'start', id, cancelId});
+			postMessage({type: WorkerMessages.START, id, cancelId});
 
 			try {
 				const awsObjectKey = await this.evaporate.add(formattedConfig);
-				postMessage({type: 'success', id, data, awsObjectKey});
+				postMessage({type: WorkerMessages.SUCCESS, id, data, awsObjectKey});
 			} catch (reason) {
-				postMessage({type: 'error', reason, id });
+				postMessage({type: WorkerMessages.ERROR, reason, id });
 			}
 		});
 	}

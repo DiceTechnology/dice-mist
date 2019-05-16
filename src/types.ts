@@ -2,7 +2,9 @@ export enum WorkerMessages {
 	PROGRESS = 'progress',
 	SUCCESS = 'success',
 	START = 'start',
-	ERROR = 'error'
+	UPLOAD = 'upload',
+	CANCEL = 'cancel',
+	ERROR = 'error',
 }
 
 export interface IConfig {
