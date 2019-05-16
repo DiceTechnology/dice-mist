@@ -5,6 +5,8 @@ import { WorkerMessages } from './types';
 
 class Worker {
 	evaporate: any;
+	signHeaders: any;
+
 	constructor() {
 		this.evaporate = null;
 		this.listenToEvents();
@@ -22,9 +24,15 @@ class Worker {
 					else console.error('Cannot cancel, evaporate not initialised');
 					break;
 				case WorkerMessages.UPLOAD:
+					// Save initial values
+					this.signHeaders = { ...config.signHeaders };
 					const augmentedConfig = this.augmentConfig(config);
 					this.evaporate = await Evaporate.create(augmentedConfig);
 					this.upload(data);
+					break;
+				case WorkerMessages.CONFIG:
+					// Save updated values
+					this.signHeaders = { ...config.signHeaders };
 					break;
 			}
 		};
@@ -60,7 +68,15 @@ class Worker {
 			const hash = sha256.create();
 			hash.update(data);
 			return hash.hex();
-		}
+		},
+		// Transform values into getters
+		signHeaders: Object.keys(config.signHeaders)
+			.reduce((headers, key) => {
+				return {
+					...headers,
+					[key]: () => this.signHeaders[key]
+				};
+			}, {})
 	})
 }
 

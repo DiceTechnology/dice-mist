@@ -68,4 +68,6 @@ export default class MistThreaded extends MistBase {
 			this.worker.terminate();
 		}
 	}
+
+	public updateConfig = config => this.worker.postMessage({ type: WorkerMessages.CONFIG, config });
 }
