@@ -1,9 +1,12 @@
 import * as Evaporate from 'evaporate';
 import * as SparkMD5 from 'spark-md5';
 import { sha256 } from 'js-sha256';
+import { WorkerMessages } from './types';
 
 class Worker {
 	evaporate: any;
+	signHeaders: any;
+
 	constructor() {
 		this.evaporate = null;
 		this.listenToEvents();
@@ -15,15 +18,21 @@ class Worker {
 			const { type, id, config } = data;
 
 			switch (type) {
-				case 'cancel':
+				case WorkerMessages.CANCEL:
 					if (this.evaporate) this.evaporate.cancel(id);
 					// @ts-ignore
 					else console.error('Cannot cancel, evaporate not initialised');
 					break;
-				case 'upload':
+				case WorkerMessages.UPLOAD:
+					// Save initial values
+					this.signHeaders = { ...config.signHeaders };
 					const augmentedConfig = this.augmentConfig(config);
 					this.evaporate = await Evaporate.create(augmentedConfig);
 					this.upload(data);
+					break;
+				case WorkerMessages.CONFIG:
+					// Save updated values
+					this.signHeaders = { ...config.signHeaders };
 					break;
 			}
 		};
@@ -37,16 +46,16 @@ class Worker {
 				name,
 				file,
 				bucket,
-				progress: progress => postMessage({ type: 'progress', progress, id })
+				progress: progress => postMessage({ type: WorkerMessages.PROGRESS, progress, id })
 			};
 
-			postMessage({type: 'start', id, cancelId});
+			postMessage({type: WorkerMessages.START, id, cancelId});
 
 			try {
 				const awsObjectKey = await this.evaporate.add(formattedConfig);
-				postMessage({type: 'success', id, data, awsObjectKey});
+				postMessage({type: WorkerMessages.SUCCESS, id, data, awsObjectKey});
 			} catch (reason) {
-				postMessage({type: 'error', reason, id });
+				postMessage({type: WorkerMessages.ERROR, reason, id });
 			}
 		});
 	}
@@ -59,7 +68,15 @@ class Worker {
 			const hash = sha256.create();
 			hash.update(data);
 			return hash.hex();
-		}
+		},
+		// Transform values into getters
+		signHeaders: Object.keys(config.signHeaders)
+			.reduce((headers, key) => {
+				return {
+					...headers,
+					[key]: () => this.signHeaders[key]
+				};
+			}, {})
 	})
 }
 
