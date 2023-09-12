@@ -10,5 +10,6 @@ export enum WorkerMessages {
 
 export interface IConfig {
 	worker?: boolean;
+	sendFileContentType?: boolean;
 	[key: string]: any;
 }
