@@ -13,6 +13,7 @@ export default class Mist extends MistBase {
 					name,
 					file,
 					progress: (percentage) => this.onProgress(percentage, file.id),
+					contentType: config.sendFileContentType ? file.type : undefined, // if not specified or affected by external factors, the content-type of the file in the bucket will be `application/octet-stream`. The `sendFileContentType` config keeps this backwards compatible.
 				};
 				const cancel = () => evaporate.cancel(`${data.bucketName}/${data.path}`);
 
