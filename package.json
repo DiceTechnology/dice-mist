@@ -1,6 +1,6 @@
 {
 	"name": "dice-mist",
-	"version": "0.0.8",
+	"version": "0.1.0",
 	"description": "A wrapper for the evaporate library allowing use in a web worker.",
 	"keywords": [
 		"S3 Upload",
