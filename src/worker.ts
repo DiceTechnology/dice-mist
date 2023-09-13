@@ -46,7 +46,8 @@ class Worker {
 				name,
 				file,
 				bucket,
-				progress: progress => postMessage({ type: WorkerMessages.PROGRESS, progress, id })
+				progress: progress => postMessage({ type: WorkerMessages.PROGRESS, progress, id }),
+				contentType: config.sendFileContentType ? file.type : undefined, // if not specified or affected by external factors, the content-type of the file in the bucket will be `application/octet-stream`. The `sendFileContentType` config keeps this backwards compatible.
 			};
 
 			postMessage({type: WorkerMessages.START, id, cancelId});
