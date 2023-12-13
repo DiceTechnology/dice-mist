@@ -4,6 +4,8 @@ import MistBase from './MistBase';
 export default class Mist extends MistBase {
 	constructor(config, files) {
 		super(config, files);
+		// @ts-ignore
+		console.log('config', config);
 
 		Evaporate.create(config).then(evaporate => {
 			this.files.forEach(({file, data}) => {
@@ -12,6 +14,8 @@ export default class Mist extends MistBase {
 				const formattedConfig = {
 					name,
 					file,
+					xAmzHeadersAtInitiate: { 'x-amz-security-token': config.awsSessionToken },
+					xAmzHeadersCommon: { 'x-amz-security-token': config.awsSessionToken },
 					progress: (percentage) => this.onProgress(percentage, file.id),
 					contentType: config.sendFileContentType ? file.type : undefined, // if not specified or affected by external factors, the content-type of the file in the bucket will be `application/octet-stream`. The `sendFileContentType` config keeps this backwards compatible.
 				};
